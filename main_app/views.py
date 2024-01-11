@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # dogs = [
 #     {'name': 'Chewy', 'breed': 'Korean Jindo', 'age': 6},
@@ -27,3 +29,17 @@ def dogs_detail(request, dog_id):
     return render(request, 'dogs/details.html', {
         'dog': dog
     })
+
+class DogCreate(CreateView):
+    model = Dog
+    fields = '__all__'
+    # success_url = '/dogs/{dog_id}'
+
+class DogUpdate(UpdateView):
+    model = Dog
+    fields = ['breed', 'age']
+    # success_url = '/dogs/{dog_id}'
+
+class DogDelete(DeleteView):
+    model = Dog
+    success_url = '/dogs'
